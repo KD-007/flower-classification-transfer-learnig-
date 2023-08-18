@@ -1,20 +1,13 @@
 from flask import Flask , request , jsonify , render_template
-from flask_cors import CORS
 import tensorflow as tf
-from tensorflow import keras
 import numpy as np
-import logging
 
-from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img
-from tensorflow.keras.applications.vgg16 import preprocess_input
 import os
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
-CORS(app)
 
-logging.basicConfig(level=logging.DEBUG)
 model = None
 
 @app.route('/' , methods=["GET", "POST"])
@@ -40,7 +33,7 @@ flowers_labels= ['roses',
 def predict():
     if request.method == 'POST':
         file = request.files['image']
-        if file: #Checking file format
+        if file: 
             filename = file.filename
             file_path = os.path.join('static/images', filename)
             file.save(file_path)
